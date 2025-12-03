@@ -64,6 +64,12 @@ fun Tabs(
 
 @Preview(showBackground = true)
 @Composable
-private fun TabsPreview() {
+private fun TabsPreview1() {
+    Tabs(labels = listOf("Label", "Label"))
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TabsPreview2() {
     Tabs(labels = listOf("Label", "Label"), selectedIndex = 1)
 }
