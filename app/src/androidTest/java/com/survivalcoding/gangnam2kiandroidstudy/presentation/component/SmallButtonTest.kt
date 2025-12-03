@@ -18,7 +18,7 @@ class SmallButtonTest {
         var count = 0
 
         composeTestRule.setContent {
-            BigButton(text = "버튼") {
+            SmallButton(text = "버튼") {
                 count++
             }
         }
