@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,21 +29,26 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
-fun BigButton(modifier: Modifier = Modifier, text: String = "", onClick: () -> Unit = {}) {
+fun BigButton(modifier: Modifier = Modifier, text: String = "Button", onClick: () -> Unit = {}) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val backgroundColor = if (isPressed) AppColors.gray4 else AppColors.primary100
 
     Box(
         modifier = modifier
-            .size(width = 315.dp, height = 60.dp)
+            .fillMaxWidth()
+            .height(60.dp)
             .background(color = backgroundColor, shape = RoundedCornerShape(10.dp))
             .clickable(interactionSource = interactionSource) {
                 onClick()
             },
         contentAlignment = Alignment.Center,
     ) {
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Column(
                 modifier = Modifier.size(width = 114.dp, height = 24.dp),
                 verticalArrangement = Arrangement.Center,
