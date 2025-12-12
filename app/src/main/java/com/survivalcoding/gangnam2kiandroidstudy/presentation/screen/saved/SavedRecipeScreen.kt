@@ -2,7 +2,9 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.saved
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,15 +23,13 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
 fun SavedRecipeScreen(
-    modifier: Modifier = Modifier,
-    viewModel: SavedRecipeViewModel = viewModel(factory = SavedRecipeViewModel.Factory),
+    uiState: SavedRecipeState,
+    modifier: Modifier = Modifier
 ) {
-    val recipeState by viewModel.savedRecipeState.collectAsState()
-
     Box(modifier = modifier.fillMaxSize()) {
         when {
-            recipeState.error != null -> Text("데이터를 가져오는 중 에러가 발생했습니다.", style = AppTextStyles.largeTextBold)
-            else -> RecipeItem(recipeState.data)
+            uiState.error != null -> Text("데이터를 가져오는 중 에러가 발생했습니다.", style = AppTextStyles.largeTextBold)
+            else -> RecipeItem(uiState.data)
         }
     }
 }
@@ -39,8 +39,9 @@ fun RecipeItem(recipes: List<Recipe>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 30.dp, vertical = 10.dp)
+            .padding(horizontal = 30.dp)
     ) {
+        Spacer(Modifier.height(54.dp))
         Text("Saved recipes", modifier = Modifier.padding(horizontal = 93.dp), style = AppTextStyles.mediumTextBold)
 
         LazyColumn {
@@ -60,6 +61,7 @@ fun RecipeItem(recipes: List<Recipe>) {
 private fun SavedRecipeScreenPreview() {
     Scaffold { innerPadding ->
         SavedRecipeScreen(
+            uiState = SavedRecipeState(),
             modifier = Modifier.padding(innerPadding)
         )
     }

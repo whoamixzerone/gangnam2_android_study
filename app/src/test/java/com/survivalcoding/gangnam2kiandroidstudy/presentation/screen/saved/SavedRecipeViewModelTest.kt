@@ -140,7 +140,7 @@ class SavedRecipeViewModelTest {
         viewModel = SavedRecipeViewModel(repository)
 
         // then
-        viewModel.savedRecipeState.test {
+        viewModel.uiState.test {
             val state = awaitItem()
             assertEquals(emptyList<Recipe>(), state.data)
 
@@ -158,7 +158,7 @@ class SavedRecipeViewModelTest {
         viewModel = SavedRecipeViewModel(repository)
 
         // then
-        viewModel.savedRecipeState.test {
+        viewModel.uiState.test {
             val state = awaitItem()
             assertEquals(emptyList<Recipe>(), state.data)
 

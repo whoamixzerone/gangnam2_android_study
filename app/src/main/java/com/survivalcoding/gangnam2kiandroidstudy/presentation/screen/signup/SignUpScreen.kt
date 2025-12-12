@@ -1,4 +1,4 @@
-package com.survivalcoding.gangnam2kiandroidstudy.presentation.component
+package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,11 +31,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.survivalcoding.gangnam2kiandroidstudy.R
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.BigButton
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.InputField
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.PasswordInputField
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
 fun SignUpScreen(
+    uiState: SignUpState,
     modifier: Modifier = Modifier,
     onClickTerm: () -> Unit = {},
     onClickSignUp: () -> Unit = {},
@@ -213,5 +217,7 @@ fun SignUpScreen(
 @Preview(showBackground = true)
 @Composable
 private fun SignUpScreenPreview() {
-    SignUpScreen()
+    SignUpScreen(
+        uiState = SignUpState()
+    )
 }

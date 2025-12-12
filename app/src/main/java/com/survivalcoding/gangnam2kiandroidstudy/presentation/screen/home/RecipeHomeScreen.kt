@@ -39,7 +39,7 @@ fun RecipeHomeScreen(
     onSelectedCategory: (RecipeCategory) -> Unit = {},
 ) {
     Column(modifier = modifier) {
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(64.dp))
         Row(
             modifier = Modifier
                 .padding(horizontal = 30.dp),
@@ -69,7 +69,7 @@ fun RecipeHomeScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(R.drawable.profile),
+                    painter = painterResource(R.drawable.profile_img),
                     contentDescription = "profile avatar image"
                 )
             }

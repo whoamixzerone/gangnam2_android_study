@@ -85,5 +85,11 @@ class RecipeHomeViewModel(private val recipeRepository: RecipeRepository) : View
                 RecipeHomeViewModel(repository)
             }
         }
+
+        fun factory(application: AppApplication) = viewModelFactory {
+            initializer {
+                RecipeHomeViewModel(application.recipeRepository)
+            }
+        }
     }
 }

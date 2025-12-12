@@ -3,6 +3,7 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.component
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup.SignUpScreen
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test

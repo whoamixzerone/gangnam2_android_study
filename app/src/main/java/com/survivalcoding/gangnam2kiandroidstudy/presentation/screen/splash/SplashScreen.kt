@@ -1,4 +1,4 @@
-package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen
+package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,7 +30,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
-fun RecipeApp(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
+fun SplashScreen(modifier: Modifier = Modifier, navigateStartCooking: () -> Unit = {}) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -119,7 +119,7 @@ fun RecipeApp(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
                     .padding(horizontal = 66.dp)
                     .padding(top = 64.dp),
                 text = "Start Cooking",
-                onClick = onClick
+                onClick = navigateStartCooking
             )
         }
     }
@@ -127,6 +127,6 @@ fun RecipeApp(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-private fun RecipeAppPreview() {
-    RecipeApp()
+private fun SplashScreenPreview() {
+    SplashScreen()
 }

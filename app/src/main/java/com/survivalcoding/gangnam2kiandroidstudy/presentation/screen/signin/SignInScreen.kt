@@ -1,4 +1,4 @@
-package com.survivalcoding.gangnam2kiandroidstudy.presentation.component
+package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,11 +28,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.survivalcoding.gangnam2kiandroidstudy.R
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.BigButton
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.InputField
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.PasswordInputField
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
 fun SignInScreen(
+    uiState: SignInState,
     modifier: Modifier = Modifier,
     onClickForgotPassword: () -> Unit = {},
     onClickSignIn: () -> Unit = {},
@@ -166,5 +170,7 @@ fun SignInScreen(
 @Preview(showBackground = true)
 @Composable
 private fun SignInScreenPreview() {
-    SignInScreen()
+    SignInScreen(
+        uiState = SignInState()
+    )
 }
