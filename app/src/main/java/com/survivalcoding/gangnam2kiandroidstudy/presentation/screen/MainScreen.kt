@@ -50,9 +50,6 @@ fun MainScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp)
-                    .padding(
-                        bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-                    )
             ) {
                 Spacer(Modifier.height(14.dp))
 
