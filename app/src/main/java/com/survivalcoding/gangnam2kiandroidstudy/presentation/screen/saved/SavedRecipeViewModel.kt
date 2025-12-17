@@ -2,17 +2,19 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.saved
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetRecipesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SavedRecipeViewModel(private val getRecipesUseCase: GetRecipesUseCase) : ViewModel() {
+@HiltViewModel
+class SavedRecipeViewModel @Inject constructor(
+    private val getRecipesUseCase: GetRecipesUseCase
+) : ViewModel() {
     private val _uiState = MutableStateFlow(SavedRecipeState())
     val uiState = _uiState.asStateFlow()
 
@@ -56,18 +58,4 @@ class SavedRecipeViewModel(private val getRecipesUseCase: GetRecipesUseCase) : V
         }
     }
 
-    companion object {
-        /*val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val recipeRepository = (this[APPLICATION_KEY] as AppApplication).recipeRepository
-                SavedRecipeViewModel(recipeRepository)
-            }
-        }*/
-
-        fun factory(application: AppApplication) = viewModelFactory {
-            initializer {
-                SavedRecipeViewModel(application.getRecipesUseCase)
-            }
-        }
-    }
 }

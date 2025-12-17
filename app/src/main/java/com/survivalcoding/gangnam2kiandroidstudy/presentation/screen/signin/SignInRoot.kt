@@ -2,15 +2,15 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signin
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun SignInRoot(
     modifier: Modifier = Modifier,
     navigateSignIn: () -> Unit = {},
     navigateSignUp: () -> Unit = {},
-    viewModel: SignInViewModel = viewModel()
+    viewModel: SignInViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 

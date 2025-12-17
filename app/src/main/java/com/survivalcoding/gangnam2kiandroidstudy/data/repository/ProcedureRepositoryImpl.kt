@@ -4,8 +4,9 @@ import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.AssetDataSource
 import com.survivalcoding.gangnam2kiandroidstudy.data.mapper.toModel
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Procedure
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.ProcedureRepository
+import jakarta.inject.Inject
 
-class ProcedureRepositoryImpl(
+class ProcedureRepositoryImpl @Inject constructor(
     private val dataSource: AssetDataSource
 ) : ProcedureRepository {
 

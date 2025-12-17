@@ -2,21 +2,18 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.recipe.det
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
 
 @Composable
 fun RecipeDetailRoot(
     recipeId: Int,
     modifier: Modifier = Modifier,
-    viewModel: RecipeDetailViewModel = viewModel(
-        factory = RecipeDetailViewModel.factory(
-            LocalContext.current.applicationContext as AppApplication,
-            recipeId
-        )
-    ),
+    viewModel: RecipeDetailViewModel = hiltViewModel(
+        creationCallback = { factory: RecipeDetailViewModel.Factory ->
+            factory.create(recipeId)
+        }
+    )
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 

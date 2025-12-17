@@ -2,14 +2,14 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun SignUpRoot(
     modifier: Modifier = Modifier,
     navigateSignIn: () -> Unit = {},
-    viewModel: SignUpViewModel = viewModel()
+    viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 

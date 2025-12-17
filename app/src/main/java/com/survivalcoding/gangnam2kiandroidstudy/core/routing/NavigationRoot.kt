@@ -1,5 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.core.routing
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
@@ -17,6 +18,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signin.Sign
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup.SignUpRoot
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.splash.SplashScreen
 
+@SuppressLint("VisibleForTests")
 @Composable
 fun NavigationRoot(modifier: Modifier = Modifier) {
     val topLevelBackStack = rememberNavBackStack(Route.Splash)

@@ -7,11 +7,14 @@ import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.RecipeDataSourc
 import com.survivalcoding.gangnam2kiandroidstudy.data.mapper.toModel
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
+import jakarta.inject.Inject
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.serialization.SerializationException
 import okio.IOException
 
-class RecipeRepositoryImpl(private val dataSource: RecipeDataSource) : RecipeRepository {
+class RecipeRepositoryImpl @Inject constructor(
+    private val dataSource: RecipeDataSource
+) : RecipeRepository {
     override suspend fun findAll(): Result<List<Recipe>, NetworkError> {
         return try {
             val response = dataSource.findAll()

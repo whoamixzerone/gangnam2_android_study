@@ -8,11 +8,12 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.isSuccess
 import io.ktor.util.toMap
+import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RecipeDataSourceImpl(
-    private val httpClient: HttpClient = HttpClientFactory.createHttpClient(),
+class RecipeDataSourceImpl @Inject constructor(
+    private val httpClient: HttpClient
 ) : RecipeDataSource {
     override suspend fun findAll(): Response<RecipeResponse> = withContext(Dispatchers.IO) {
         val response = httpClient.get(BASE_URL)

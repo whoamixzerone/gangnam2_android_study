@@ -3,20 +3,28 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.recipe.det
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetRecipeDetailsUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class RecipeDetailViewModel(
+@HiltViewModel(assistedFactory = RecipeDetailViewModel.Factory::class)
+class RecipeDetailViewModel @AssistedInject constructor(
     private val getRecipeDetailsUseCase: GetRecipeDetailsUseCase,
-    val recipeId: Int,
+    @Assisted private val recipeId: Int
 ) : ViewModel() {
+
+    @AssistedFactory
+    interface Factory {
+        fun create(recipeId: Int): RecipeDetailViewModel
+    }
+
     private val _uiState = MutableStateFlow(RecipeDetailState())
     val uiState = _uiState.asStateFlow()
 
@@ -60,11 +68,4 @@ class RecipeDetailViewModel(
         }
     }
 
-    companion object {
-        fun factory(appApplication: AppApplication, recipeId: Int) = viewModelFactory {
-            initializer {
-                RecipeDetailViewModel(appApplication.getRecipeDetailsUseCase, recipeId)
-            }
-        }
-    }
 }
