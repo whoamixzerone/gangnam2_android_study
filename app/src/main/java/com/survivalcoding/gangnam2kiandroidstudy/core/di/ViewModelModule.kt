@@ -35,7 +35,6 @@ val recipeDetailViewModelModule = module {
             recipeId = recipeId
         )
     }
-    viewModelOf(::RecipeDetailViewModel)
 }
 
 val savedRecipeViewModelModule = module {
