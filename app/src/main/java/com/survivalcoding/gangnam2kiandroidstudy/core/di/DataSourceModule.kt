@@ -17,7 +17,7 @@ val recipeDataSourceModule = module {
     single<RecipeDataSource> { RecipeDataSourceImpl() }
 }
 
-val dataSourceMoudle = listOf(
+val dataSourceModule = listOf(
     assetDataSourceModule,
     recipeDataSourceModule
 )

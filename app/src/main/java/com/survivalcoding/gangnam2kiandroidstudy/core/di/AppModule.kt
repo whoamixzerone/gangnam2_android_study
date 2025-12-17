@@ -8,7 +8,7 @@ val recipeAppModule = module {
 
 val recipeApp = listOf(
     repositoryModule,
-    dataSourceMoudle,
+    dataSourceModule,
     useCaseModule,
     viewModelModule
 ).flatten()
