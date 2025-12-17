@@ -40,11 +40,11 @@ fun Tabs(
                 Column(
                     modifier = Modifier
                         .size(150.dp, 33.dp)
-                        .clickable { onValueChange(index) }
                         .background(
                             color = if (index == selectedIndex) AppColors.primary100 else AppColors.white,
                             shape = RoundedCornerShape(10.dp)
-                        ),
+                        )
+                        .clickable { onValueChange(index) },
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {

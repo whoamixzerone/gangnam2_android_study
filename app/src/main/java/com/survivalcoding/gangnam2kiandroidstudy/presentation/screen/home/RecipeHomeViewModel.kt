@@ -1,12 +1,7 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeCategory
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
@@ -73,21 +68,6 @@ class RecipeHomeViewModel(private val recipeRepository: RecipeRepository) : View
         } catch (e: Exception) {
             _state.update {
                 it.copy(isLoading = false, error = "Error fetching ${e.message}")
-            }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val repository = (this[APPLICATION_KEY] as AppApplication).recipeRepository
-                RecipeHomeViewModel(repository)
-            }
-        }
-
-        fun factory(application: AppApplication) = viewModelFactory {
-            initializer {
-                RecipeHomeViewModel(application.recipeRepository)
             }
         }
     }

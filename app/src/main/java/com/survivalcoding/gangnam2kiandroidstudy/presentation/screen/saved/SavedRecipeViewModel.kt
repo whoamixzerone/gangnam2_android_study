@@ -2,9 +2,6 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.saved
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetRecipesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,18 +53,4 @@ class SavedRecipeViewModel(private val getRecipesUseCase: GetRecipesUseCase) : V
         }
     }
 
-    companion object {
-        /*val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val recipeRepository = (this[APPLICATION_KEY] as AppApplication).recipeRepository
-                SavedRecipeViewModel(recipeRepository)
-            }
-        }*/
-
-        fun factory(application: AppApplication) = viewModelFactory {
-            initializer {
-                SavedRecipeViewModel(application.getRecipesUseCase)
-            }
-        }
-    }
 }

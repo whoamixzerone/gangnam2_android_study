@@ -10,13 +10,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun RecipeHomeRoot(
     modifier: Modifier = Modifier,
-    viewModel: RecipeHomeViewModel = viewModel(
-        factory = RecipeHomeViewModel.factory(LocalContext.current.applicationContext as AppApplication)
-    )
+    viewModel: RecipeHomeViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

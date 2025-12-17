@@ -3,9 +3,6 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.recipe.det
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetRecipeDetailsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -60,11 +57,5 @@ class RecipeDetailViewModel(
         }
     }
 
-    companion object {
-        fun factory(appApplication: AppApplication, recipeId: Int) = viewModelFactory {
-            initializer {
-                RecipeDetailViewModel(appApplication.getRecipeDetailsUseCase, recipeId)
-            }
-        }
-    }
+
 }

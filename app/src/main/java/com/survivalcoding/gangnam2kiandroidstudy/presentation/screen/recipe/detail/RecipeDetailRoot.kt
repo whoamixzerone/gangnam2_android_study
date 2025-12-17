@@ -2,21 +2,15 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.recipe.det
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun RecipeDetailRoot(
     recipeId: Int,
     modifier: Modifier = Modifier,
-    viewModel: RecipeDetailViewModel = viewModel(
-        factory = RecipeDetailViewModel.factory(
-            LocalContext.current.applicationContext as AppApplication,
-            recipeId
-        )
-    ),
+    viewModel: RecipeDetailViewModel = koinViewModel { parametersOf(recipeId) }
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
