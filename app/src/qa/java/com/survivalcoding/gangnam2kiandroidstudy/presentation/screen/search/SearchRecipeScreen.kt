@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.search
 
 import androidx.compose.foundation.layout.Arrangement
@@ -17,9 +19,12 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,8 +43,8 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 @Composable
 fun SearchRecipeScreen(
     state: SearchRecipeState,
+    sheetState: SheetState,
     modifier: Modifier = Modifier,
-    navigateToDetail: (recipeId: Int) -> Unit = {},
     onAction: (SearchRecipeAction) -> Unit = {},
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -114,7 +119,7 @@ fun SearchRecipeScreen(
                     items(recipes) { recipe ->
                         RecipeSearchCard(
                             recipe = recipe,
-                            navigateToDetail = navigateToDetail
+                            onAction = onAction
                         )
                     }
                 }
@@ -123,6 +128,7 @@ fun SearchRecipeScreen(
             FilterSearchBottomSheet(
                 state = state.filterSearchState,
                 showBottomSheet = state.showBottomSheet,
+                sheetState = sheetState,
                 onAction = onAction,
             )
         }
@@ -136,10 +142,12 @@ private fun SearchRecipeScreenPreview() {
         recipes = MockRecipeData.recipeListThree,
         filterRecipes = MockRecipeData.recipeListThree
     )
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     Scaffold { innerPadding ->
         SearchRecipeScreen(
             state = state,
+            sheetState = sheetState,
             modifier = Modifier.padding(innerPadding)
         )
     }
