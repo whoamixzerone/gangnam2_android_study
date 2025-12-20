@@ -8,6 +8,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.saved.Saved
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.search.SearchRecipeViewModel
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signin.SignInViewModel
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup.SignUpViewModel
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.splash.SplashViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -57,6 +58,10 @@ val signUpViewModelModule = module {
     viewModelOf(::SignUpViewModel)
 }
 
+val splashViewModelModule = module {
+    viewModelOf(::SplashViewModel)
+}
+
 val viewModelModule = listOf(
     homeViewModelModule,
     notificationViewModelModule,
@@ -65,5 +70,6 @@ val viewModelModule = listOf(
     savedRecipeViewModelModule,
     searchRecipeViewModelModule,
     signInViewModelModule,
-    signUpViewModelModule
+    signUpViewModelModule,
+    splashViewModelModule
 )

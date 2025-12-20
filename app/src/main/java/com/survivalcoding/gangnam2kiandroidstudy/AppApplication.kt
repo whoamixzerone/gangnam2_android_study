@@ -1,7 +1,8 @@
 package com.survivalcoding.gangnam2kiandroidstudy
 
 import android.app.Application
-import com.survivalcoding.gangnam2kiandroidstudy.core.di.recipeApp
+import com.survivalcoding.gangnam2kiandroidstudy.core.di.coreModule
+import com.survivalcoding.gangnam2kiandroidstudy.core.di.recipeAppModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,10 @@ class AppApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@AppApplication)
-            modules(recipeApp)
+            modules(
+                coreModule,
+                *recipeAppModule.toTypedArray()
+            )
         }
     }
 }
