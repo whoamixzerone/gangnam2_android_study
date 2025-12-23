@@ -29,8 +29,7 @@ fun SavedRecipeScreen(
     uiState: SavedRecipeState,
     scrollState: LazyListState,
     modifier: Modifier = Modifier,
-    onUnBookmark: (Int) -> Unit = {},
-    navigateToDetail: (Int) -> Unit = {},
+    onAction: (SavedRecipeAction) -> Unit = {},
 ) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         when {
@@ -43,8 +42,7 @@ fun SavedRecipeScreen(
             else -> RecipeItem(
                 recipes = uiState.data,
                 scrollState = scrollState,
-                onUnBookmark = onUnBookmark,
-                navigateToDetail = navigateToDetail
+                onAction = onAction
             )
         }
     }
@@ -54,8 +52,7 @@ fun SavedRecipeScreen(
 fun RecipeItem(
     recipes: List<Recipe>,
     scrollState: LazyListState,
-    onUnBookmark: (Int) -> Unit = {},
-    navigateToDetail: (Int) -> Unit = {},
+    onAction: (SavedRecipeAction) -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -77,9 +74,9 @@ fun RecipeItem(
                 RecipeCard(
                     recipe = recipe,
                     modifier = Modifier
-                        .clickable { navigateToDetail(recipe.id) }
+                        .clickable { onAction(SavedRecipeAction.OnRecipeItemClick(recipe.id)) }
                         .padding(vertical = 20.dp),
-                    onUnBookmark = { onUnBookmark(recipe.id) }
+                    onUnBookmark = { onAction(SavedRecipeAction.OnUnBookmark(it)) }
                 )
             }
         }

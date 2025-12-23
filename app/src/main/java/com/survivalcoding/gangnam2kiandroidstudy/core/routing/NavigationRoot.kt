@@ -81,7 +81,7 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
                                 }
                                 entry<Route.SavedRecipes> {
                                     SavedRecipeRoot(
-                                        navigateToDetail = { recipeId ->
+                                        onNavigateToDetail = { recipeId ->
                                             topLevelBackStack.removeIf { navKey ->
                                                 navKey is Route.RecipeDetail
                                             }

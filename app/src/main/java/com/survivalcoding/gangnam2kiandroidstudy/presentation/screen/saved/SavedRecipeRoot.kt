@@ -19,7 +19,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun SavedRecipeRoot(
     modifier: Modifier = Modifier,
-    navigateToDetail: (recipeId: Int) -> Unit = {},
+    onNavigateToDetail: (recipeId: Int) -> Unit = {},
     viewModel: SavedRecipeViewModel = koinViewModel(),
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
@@ -45,6 +45,14 @@ fun SavedRecipeRoot(
         }
     }
 
+    LaunchedEffect(viewModel.uiEvent) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is SavedRecipeEvent.NavigateToDetail -> onNavigateToDetail(event.recipeId)
+            }
+        }
+    }
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) {
@@ -52,8 +60,7 @@ fun SavedRecipeRoot(
             uiState = uiState.value,
             scrollState = scrollState,
             modifier = modifier,
-            onUnBookmark = viewModel::unBookmark,
-            navigateToDetail = navigateToDetail
+            onAction = viewModel::onAction
         )
     }
 }
