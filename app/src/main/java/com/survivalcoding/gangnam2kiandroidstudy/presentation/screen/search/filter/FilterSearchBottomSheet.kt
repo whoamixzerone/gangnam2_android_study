@@ -44,7 +44,7 @@ fun FilterSearchBottomSheet(
     val rate = remember { mutableStateOf(state.rate) }
     val category = remember { mutableStateOf(state.category) }
 
-    BackHandler {
+    BackHandler(sheetState.isVisible) {
         onAction(SearchRecipeAction.CancelFilter)
     }
 
