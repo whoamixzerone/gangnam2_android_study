@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
 class SearchRecipeViewModel(
-    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SearchRecipeState())
     val uiState: StateFlow<SearchRecipeState> = _uiState.asStateFlow()
@@ -33,7 +33,6 @@ class SearchRecipeViewModel(
     private val _searchQuery = _uiState
         .map { it.query }
         .debounce(1000)
-
 
     init {
         fetchRecipes()
@@ -55,6 +54,7 @@ class SearchRecipeViewModel(
                     _uiEvent.emit(NavigateToDetail(action.recipeId))
                 }
             }
+
             SearchRecipeAction.OnSearchDone -> performSearch()
             is SearchRecipeAction.UpdateQuery -> updateSearch(action.query)
             SearchRecipeAction.OnFilterSettingClick -> toggleFilterSetting()
@@ -158,6 +158,4 @@ class SearchRecipeViewModel(
             }
         }
     }
-
-
 }

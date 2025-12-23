@@ -2,6 +2,7 @@
 
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.search.filter
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -42,6 +43,10 @@ fun FilterSearchBottomSheet(
     val time = remember { mutableStateOf(state.time) }
     val rate = remember { mutableStateOf(state.rate) }
     val category = remember { mutableStateOf(state.category) }
+
+    BackHandler {
+        onAction(SearchRecipeAction.CancelFilter)
+    }
 
     if (showBottomSheet) {
         ModalBottomSheet(

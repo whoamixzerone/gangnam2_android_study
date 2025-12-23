@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,6 +27,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 @Composable
 fun SavedRecipeScreen(
     uiState: SavedRecipeState,
+    scrollState: LazyListState,
     modifier: Modifier = Modifier,
     onUnBookmark: (Int) -> Unit = {},
     navigateToDetail: (Int) -> Unit = {},
@@ -39,6 +42,7 @@ fun SavedRecipeScreen(
 
             else -> RecipeItem(
                 recipes = uiState.data,
+                scrollState = scrollState,
                 onUnBookmark = onUnBookmark,
                 navigateToDetail = navigateToDetail
             )
@@ -49,6 +53,7 @@ fun SavedRecipeScreen(
 @Composable
 fun RecipeItem(
     recipes: List<Recipe>,
+    scrollState: LazyListState,
     onUnBookmark: (Int) -> Unit = {},
     navigateToDetail: (Int) -> Unit = {},
 ) {
@@ -58,9 +63,16 @@ fun RecipeItem(
             .padding(horizontal = 30.dp)
     ) {
         Spacer(Modifier.height(54.dp))
-        Text("Saved recipes", modifier = Modifier.padding(horizontal = 93.dp), style = AppTextStyles.mediumTextBold)
+        Text(
+            text = "Saved recipes",
+            modifier = Modifier.padding(horizontal = 93.dp),
+            style = AppTextStyles.mediumTextBold
+        )
 
-        LazyColumn {
+        Spacer(Modifier.height(10.dp))
+        LazyColumn(
+            state = scrollState,
+        ) {
             items(recipes) { recipe ->
                 RecipeCard(
                     recipe = recipe,
@@ -80,10 +92,12 @@ private fun SavedRecipeScreenPreview() {
     val uiState = SavedRecipeState(
         data = MockRecipeData.recipeListThree
     )
+    val scrollState = rememberLazyListState()
 
     Scaffold { innerPadding ->
         SavedRecipeScreen(
             uiState = uiState,
+            scrollState = scrollState,
             modifier = Modifier.padding(innerPadding)
         )
     }
