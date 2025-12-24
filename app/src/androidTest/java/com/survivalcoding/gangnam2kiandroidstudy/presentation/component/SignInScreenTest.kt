@@ -4,6 +4,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signin.SignInScreen
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signin.SignInState
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -18,7 +19,9 @@ class SignInScreenTest {
         var count = 0
 
         componentTestRule.setContent {
-            SignInScreen(onClickForgotPassword = {
+            SignInScreen(
+                uiState = SignInState(),
+                onClickForgotPassword = {
                 count++
             })
         }
@@ -34,7 +37,9 @@ class SignInScreenTest {
         var count = 0
 
         componentTestRule.setContent {
-            SignInScreen(onClickSignIn = {
+            SignInScreen(
+                uiState = SignInState(),
+                onClickSignIn = {
                 count++
             })
         }
@@ -50,7 +55,9 @@ class SignInScreenTest {
         var count = 0
 
         componentTestRule.setContent {
-            SignInScreen(onClickSignUp = {
+            SignInScreen(
+                uiState = SignInState(),
+                onClickSignUp = {
                 count++
             })
         }
