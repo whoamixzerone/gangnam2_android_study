@@ -1,24 +1,37 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.search
 
+import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.hasAnyDescendant
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasSetTextAction
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkError
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.core.di.coreModule
-import com.survivalcoding.gangnam2kiandroidstudy.core.di.dataSourceModule
-import com.survivalcoding.gangnam2kiandroidstudy.core.di.ingredientRepositoryModule
-import com.survivalcoding.gangnam2kiandroidstudy.core.di.procedureRepositoryModule
 import com.survivalcoding.gangnam2kiandroidstudy.core.di.useCaseModule
 import com.survivalcoding.gangnam2kiandroidstudy.core.di.viewModelModule
+import com.survivalcoding.gangnam2kiandroidstudy.core.routing.Route
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Ingredient
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Procedure
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.IngredientRepository
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.ProcedureRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.mockdata.MockRecipeData
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.recipe.detail.RecipeDetailRoot
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -34,26 +47,23 @@ import org.koin.dsl.module
 class SearchRecipeIntegrationTest {
 
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     private val fakeRepository = FakeRecipeRepository()
+    private val fakeIngredientRepository = FakeIngredientRepository()
+    private val fakeProcedureRepository = FakeProcedureRepository()
 
     @Before
     fun setup() {
-        // Stop the Koin instance started by AppApplication
         stopKoin()
-        
-        // Start Koin with our test configuration
         startKoin {
             androidContext(ApplicationProvider.getApplicationContext())
             modules(
                 coreModule,
-                *dataSourceModule.toTypedArray(),
-                ingredientRepositoryModule,
-                procedureRepositoryModule,
-                // Replace RecipeRepository with Fake
                 module {
                     single<RecipeRepository> { fakeRepository }
+                    single<IngredientRepository> { fakeIngredientRepository }
+                    single<ProcedureRepository> { fakeProcedureRepository }
                 },
                 *useCaseModule.toTypedArray(),
                 *viewModelModule.toTypedArray()
@@ -69,24 +79,20 @@ class SearchRecipeIntegrationTest {
     @Test
     fun searchRecipe_displaysResults_afterQuery() {
         runTest {
-            // 1. Launch the screen
             composeTestRule.setContent {
                 SearchRecipeRoot()
             }
 
-            // 2. Type "Classic" in search bar (matches "Classic Greek Salad")
             composeTestRule.onNode(hasSetTextAction()).performTextInput("Classic")
 
-            // 3. Wait for debounce (1000ms) + network (simulated) + UI update
-            // We wait until the result text appears in the UI
             composeTestRule.waitUntil(timeoutMillis = 5000) {
                 composeTestRule.onAllNodesWithText("Classic Greek Salad").fetchSemanticsNodes().isNotEmpty()
             }
 
-            // 4. Verify results - Should be 3 based on MockRecipeData.recipeListThree
             composeTestRule.onAllNodesWithText("Classic Greek Salad").assertCountEquals(3)
         }
     }
+
 }
 
 class FakeRecipeRepository : RecipeRepository {
@@ -103,7 +109,6 @@ class FakeRecipeRepository : RecipeRepository {
         category: String
     ): Result<List<Recipe>, NetworkError> {
         searchCalled = true
-        // Filter mock data by query to match search behavior
         val filtered = MockRecipeData.recipeListThree.filter { 
             it.name.contains(query, ignoreCase = true) 
         }
@@ -115,6 +120,18 @@ class FakeRecipeRepository : RecipeRepository {
     }
 
     override suspend fun getRecipeById(recipeId: Int): Recipe? {
-        return null
+        return MockRecipeData.recipeListThree.find { it.id == recipeId }
+    }
+}
+
+class FakeIngredientRepository : IngredientRepository {
+    override suspend fun getIngredients(id: Int): List<Ingredient> {
+        return emptyList()
+    }
+}
+
+class FakeProcedureRepository : ProcedureRepository {
+    override suspend fun getProcedures(id: Int): List<Procedure> {
+        return emptyList()
     }
 }
