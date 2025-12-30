@@ -2,7 +2,6 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,6 +39,7 @@ fun Search(
     modifier: Modifier = Modifier,
     placeholder: String = "Placeholder",
     value: String = "",
+    isSearchEnabled: Boolean = false,
     onClick: () -> Unit = {},
     onValueChange: (String) -> Unit = {},
 ) {
@@ -68,7 +68,6 @@ fun Search(
                 tint = AppColors.gray4,
                 modifier = Modifier
                     .size(18.dp)
-//                    .clickable { onClick() }
             )
             Spacer(modifier = Modifier.width(10.dp))
 
@@ -93,7 +92,8 @@ fun Search(
                         )
                     }
                     innerTextField()
-                }
+                },
+                enabled = isSearchEnabled
             )
         }
     }

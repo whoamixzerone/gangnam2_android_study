@@ -2,6 +2,7 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,14 +36,20 @@ import coil.compose.rememberAsyncImagePainter
 import com.survivalcoding.gangnam2kiandroidstudy.R
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.mockdata.MockRecipeData
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home.RecipeHomeAction
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
-fun RatingHomeCard(recipe: Recipe, modifier: Modifier = Modifier) {
+fun RatingHomeCard(
+    recipe: Recipe,
+    modifier: Modifier = Modifier,
+    onAction: (RecipeHomeAction) -> Unit = {},
+) {
     Box(
         modifier = modifier
             .size(251.dp, 127.dp)
+            .clickable { onAction(RecipeHomeAction.OnRecipeClick(recipe.id)) }
     ) {
         val painter = if (LocalInspectionMode.current) {
             painterResource(R.drawable.recipe_rate)
@@ -75,7 +81,6 @@ fun RatingHomeCard(recipe: Recipe, modifier: Modifier = Modifier) {
                     modifier = Modifier.width(139.44.dp),
                     style = AppTextStyles.smallTextBold.copy(fontWeight = FontWeight.SemiBold),
                     color = AppColors.gray1,
-                    textAlign = TextAlign.Center,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

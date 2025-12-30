@@ -22,7 +22,11 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
-fun SmallButton(modifier: Modifier = Modifier, text: String = "", onClick: () -> Unit = {}) {
+fun SmallButton(
+    modifier: Modifier = Modifier,
+    text: String = "",
+    onClick: () -> Unit = {},
+) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val backgroundColor = if (isPressed) AppColors.gray4 else AppColors.primary100

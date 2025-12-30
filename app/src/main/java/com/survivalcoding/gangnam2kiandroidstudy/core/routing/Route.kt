@@ -14,7 +14,7 @@ sealed interface Route : NavKey {
     data object SignUp : Route
 
     @Serializable
-    data object Main : Route
+    data class Main(val initialRoute: Route = Home) : Route
 
     @Serializable
     data object Home : Route
@@ -27,6 +27,9 @@ sealed interface Route : NavKey {
 
     @Serializable
     data object Profile : Route
+
+    @Serializable
+    data object SearchRecipe : Route
 
     @Serializable
     data class RecipeDetail(val recipeId: Int) : Route

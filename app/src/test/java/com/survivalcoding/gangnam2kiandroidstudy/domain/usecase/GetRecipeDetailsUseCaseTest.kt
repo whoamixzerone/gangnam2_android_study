@@ -10,6 +10,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeReposit
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -50,8 +51,8 @@ class GetRecipeDetailsUseCaseTest {
             "James Milner",
             "20 min",
             4.0,
-            emptyList(),
-            emptyList()
+            persistentListOf(),
+            persistentListOf()
         )
 
         val ingredients = listOf(

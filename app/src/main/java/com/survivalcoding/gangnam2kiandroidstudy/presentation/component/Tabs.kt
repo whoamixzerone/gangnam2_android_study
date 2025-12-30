@@ -15,16 +15,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.survivalcoding.gangnam2kiandroidstudy.R
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun Tabs(
     modifier: Modifier = Modifier,
-    labels: List<String>,
+    labels: ImmutableList<Int>,
     selectedIndex: Int = 0,
     onValueChange: (Int) -> Unit = {},
 ) {
@@ -49,7 +53,7 @@ fun Tabs(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = labels[index],
+                        text = stringResource(id = labels[index]),
                         modifier = Modifier.size(132.dp, 17.dp),
                         style = AppTextStyles.smallerTextBold,
                         color = if (index == selectedIndex) AppColors.white else AppColors.primary80,
@@ -65,11 +69,11 @@ fun Tabs(
 @Preview(showBackground = true)
 @Composable
 private fun TabsPreview1() {
-    Tabs(labels = listOf("Label", "Label"))
+    Tabs(labels = persistentListOf(R.string.tab_ingredient, R.string.tab_procedure))
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun TabsPreview2() {
-    Tabs(labels = listOf("Label", "Label"), selectedIndex = 1)
+    Tabs(labels = persistentListOf(R.string.tab_ingredient, R.string.tab_procedure), selectedIndex = 1)
 }

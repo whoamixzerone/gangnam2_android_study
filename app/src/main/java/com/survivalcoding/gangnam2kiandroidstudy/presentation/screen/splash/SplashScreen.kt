@@ -30,11 +30,12 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
-fun SplashScreen(modifier: Modifier = Modifier, navigateStartCooking: () -> Unit = {}) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-    ) {
+fun SplashScreen(
+    uiState: SplashState,
+    modifier: Modifier = Modifier,
+    onAction: (SplashAction) -> Unit = {},
+) {
+    Box(modifier = modifier.fillMaxSize()) {
         Image(
             painter = painterResource(R.drawable.recipe_main),
             contentDescription = "recipe app start image",
@@ -92,7 +93,11 @@ fun SplashScreen(modifier: Modifier = Modifier, navigateStartCooking: () -> Unit
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Box(modifier = Modifier.padding(horizontal = 31.dp), contentAlignment = Alignment.Center) {
+                    Box(
+                        modifier = Modifier
+                            .padding(horizontal = 31.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
                         Text(
                             text = "Get Cooking",
                             style = AppTextStyles.headerTextBold.copy(
@@ -119,7 +124,8 @@ fun SplashScreen(modifier: Modifier = Modifier, navigateStartCooking: () -> Unit
                     .padding(horizontal = 66.dp)
                     .padding(top = 64.dp),
                 text = "Start Cooking",
-                onClick = navigateStartCooking
+                enabled = uiState.isButtonEnabled,
+                onClick = { onAction(SplashAction.OnStartCookingClick) }
             )
         }
     }
@@ -128,5 +134,7 @@ fun SplashScreen(modifier: Modifier = Modifier, navigateStartCooking: () -> Unit
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun SplashScreenPreview() {
-    SplashScreen()
+    SplashScreen(
+        uiState = SplashState()
+    )
 }

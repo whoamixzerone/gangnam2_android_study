@@ -2,6 +2,7 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,7 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.survivalcoding.gangnam2kiandroidstudy.R
-import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeCategory
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.FilterSettingButton
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.RecipeCategorySelector
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.Search
@@ -36,7 +36,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 fun RecipeHomeScreen(
     state: RecipeHomeState,
     modifier: Modifier = Modifier,
-    onSelectedCategory: (RecipeCategory) -> Unit = {},
+    onAction: (RecipeHomeAction) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Spacer(Modifier.height(64.dp))
@@ -69,7 +69,7 @@ fun RecipeHomeScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(R.drawable.profile_img),
+                    painter = painterResource(R.drawable.profile),
                     contentDescription = "profile avatar image"
                 )
             }
@@ -81,9 +81,13 @@ fun RecipeHomeScreen(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Search(modifier = Modifier.weight(1f), placeholder = "Search recipe")
+            Search(
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onAction(RecipeHomeAction.OnSearchClick) },
+                placeholder = "Search recipe"
+            )
             Spacer(Modifier.width(20.dp))
-
             FilterSettingButton(modifier = Modifier)
         }
 
@@ -91,7 +95,9 @@ fun RecipeHomeScreen(
         RecipeCategorySelector(
             modifier = Modifier,
             selectCategory = state.selectedCategory,
-            onSelectCategory = { onSelectedCategory(it) }
+            onSelectCategory = {
+                onAction(RecipeHomeAction.SelectedCategory(it))
+            }
         )
 
         Spacer(Modifier.height(15.dp))
@@ -118,7 +124,12 @@ fun RecipeHomeScreen(
                 }
             }
 
-            else -> RecipeHomeCardScreen(state.recipes, modifier = Modifier.padding(top = 15.dp))
+            else -> RecipeHomeCardScreen(
+                recipes = state.recipes,
+                savedRecipeIds = state.savedRecipeIds,
+                modifier = Modifier.padding(top = 15.dp),
+                onAction = onAction
+            )
         }
 
         Spacer(Modifier.height(20.dp))
@@ -129,7 +140,11 @@ fun RecipeHomeScreen(
         )
 
         Spacer(Modifier.height(5.dp))
-        RecipeHomeRatingScreen(recipes = state.recipes, modifier = Modifier)
+        RecipeHomeRatingScreen(
+            recipes = state.recipes,
+            modifier = Modifier,
+            onAction = onAction
+        )
 
         Spacer(Modifier.height(6.dp))
     }

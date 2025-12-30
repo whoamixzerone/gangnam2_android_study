@@ -6,6 +6,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.IngredientRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.ProcedureRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
+import kotlinx.collections.immutable.toPersistentList
 
 class GetRecipeDetailsUseCase(
     private val recipeRepository: RecipeRepository,
@@ -21,8 +22,8 @@ class GetRecipeDetailsUseCase(
                 )
 
             val mergedRecipe = recipeResult.copy(
-                ingredients = ingredientRepository.getIngredients(recipeId),
-                procedures = procedureRepository.getProcedures(recipeId)
+                ingredients = ingredientRepository.getIngredients(recipeId).toPersistentList(),
+                procedures = procedureRepository.getProcedures(recipeId).toPersistentList()
             )
 
             Result.Success(mergedRecipe)

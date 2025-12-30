@@ -17,11 +17,14 @@ import androidx.compose.ui.unit.dp
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.RatingHomeCard
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.mockdata.MockRecipeData
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toPersistentList
 
 @Composable
 fun RecipeHomeRatingScreen(
-    recipes: List<Recipe>,
+    recipes: ImmutableList<Recipe>,
     modifier: Modifier = Modifier,
+    onAction: (RecipeHomeAction) -> Unit = {},
 ) {
     Box(modifier = modifier.fillMaxWidth()) {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -29,7 +32,10 @@ fun RecipeHomeRatingScreen(
 
             LazyRow {
                 items(recipes) { recipe ->
-                    RatingHomeCard(recipe = recipe)
+                    RatingHomeCard(
+                        recipe = recipe,
+                        onAction = onAction
+                    )
                     Spacer(Modifier.width(15.dp))
                 }
             }
@@ -41,7 +47,7 @@ fun RecipeHomeRatingScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun RecipeHomeRatingScreenPreview() {
-    val recipes = MockRecipeData.recipeListThree
+    val recipes = MockRecipeData.recipeListThree.toPersistentList()
 
     Scaffold { innerPadding ->
         RecipeHomeRatingScreen(

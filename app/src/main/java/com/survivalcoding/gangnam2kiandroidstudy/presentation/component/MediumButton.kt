@@ -2,8 +2,6 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,8 +17,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,19 +25,24 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
-fun MediumButton(modifier: Modifier = Modifier, text: String = "", onClick: () -> Unit = {}) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val backgroundColor = if (isPressed) AppColors.gray4 else AppColors.primary100
-
+fun MediumButton(
+    modifier: Modifier = Modifier,
+    text: String = "",
+    enabled: Boolean = true,
+    onClick: () -> Unit = {},
+) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(54.dp)
-            .background(color = backgroundColor, shape = RoundedCornerShape(10.dp))
-            .clickable(interactionSource = interactionSource) {
-                onClick()
-            },
+            .background(
+                color = if (enabled) AppColors.primary100 else AppColors.gray4,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .clickable(
+                enabled = enabled,
+                onClick = onClick
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Row {

@@ -23,10 +23,12 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Ingredient
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.IngredientItem
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun IngredientScreen(
-    ingredients: List<Ingredient>,
+    ingredients: ImmutableList<Ingredient>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -66,7 +68,7 @@ fun IngredientScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun IngredientScreenPreview() {
-    val ingredients = listOf(
+    val ingredients = persistentListOf(
         Ingredient(
             1,
             "Tomatos",

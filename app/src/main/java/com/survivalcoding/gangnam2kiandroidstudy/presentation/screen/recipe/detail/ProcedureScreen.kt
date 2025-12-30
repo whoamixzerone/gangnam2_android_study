@@ -23,10 +23,12 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Procedure
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.ProcedureItem
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun ProcedureScreen(
-    procedures: List<Procedure>,
+    procedures: ImmutableList<Procedure>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -66,7 +68,7 @@ fun ProcedureScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun ProcedureScreenPreview() {
-    val procedures = listOf(
+    val procedures = persistentListOf(
         Procedure(
             step = 1,
             content = "Lorem Ipsum tempor incididunt ut labore et dolore,in voluptate velit esse cillum dolore eu fugiat nulla pariatur?",
