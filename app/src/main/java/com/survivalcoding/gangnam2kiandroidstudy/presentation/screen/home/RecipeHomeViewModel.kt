@@ -3,10 +3,11 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.entity.User
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.User
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeCategory
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.UserRepository
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -50,7 +51,7 @@ class RecipeHomeViewModel(
             userRepository.loadById(1)
                 .collect { user ->
                     _state.update {
-                        it.copy(savedRecipeIds = user?.recipeIds ?: emptyList())
+                        it.copy(savedRecipeIds = user?.bookmarks ?: emptyList())
                     }
                 }
         }
@@ -118,7 +119,17 @@ class RecipeHomeViewModel(
             val user = userRepository.loadById(1).firstOrNull()
 
             if (user == null) {
-                userRepository.save(User(id = 0, recipeIds = emptyList()))
+                userRepository.save(
+                    User(
+                        id = 0,
+                        name = "",
+                        image = "",
+                        address = "",
+                        work = "",
+                        introduce = "",
+                        bookmarks = persistentListOf()
+                    )
+                )
             }
 
             userRepository.updateSavedRecipe(1, recipeId)

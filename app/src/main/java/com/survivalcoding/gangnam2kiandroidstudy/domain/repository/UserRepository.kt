@@ -1,6 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.domain.repository
 
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.entity.User
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {

@@ -1,0 +1,94 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Chef John",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "Lagos, Nigeria",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": [1, 2, 3, 4]
+    },
+    {
+      "id": 2,
+      "name": "Mark Kelvin",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "Abuja, Nigeria",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": [2]
+    },
+    {
+      "id": 3,
+      "name": "Spicy Nelly",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "Ibadan, Nigeria",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": [5, 6, 7]
+    },
+    {
+      "id": 4,
+      "name": "Kim Dahee",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "Seoul, South Korea",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": [1]
+    },
+    {
+      "id": 5,
+      "name": "Alice Johnson",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "New York, USA",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": [1, 2, 3]
+    },
+    {
+      "id": 6,
+      "name": "Gordon Ramsay",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "London, UK",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": [4, 5]
+    },
+    {
+      "id": 7,
+      "name": "Mario Batali",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "Rome, Italy",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": [7, 8, 9, 10]
+    },
+    {
+      "id": 8,
+      "name": "Jiro Ono",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "Tokyo, Japan",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": []
+    },
+    {
+      "id": 9,
+      "name": "Julia Child",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "Paris, France",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": [3]
+    },
+    {
+      "id": 10,
+      "name": "Paul Hollywood",
+      "image": "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+      "address": "London, UK",
+      "work": "Chef",
+      "introduce": "Private Chef\nPassionate about food and life \uD83E\uDD58\uD83C\uDF72\uD83C\uDF5D\uD83C\uDF71",
+      "bookmarks": []
+    }
+  ]
+}
