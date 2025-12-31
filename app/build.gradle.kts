@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -53,12 +54,13 @@ android {
             applicationIdSuffix = ".prod"
             versionNameSuffix = "-prod"
         }
-        create("qa") {
+        create("staging") {
             dimension = "version"
-            applicationIdSuffix = ".qa"
-            versionNameSuffix = "-qa"
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
         }
     }
+
 }
 
 dependencies {
@@ -92,6 +94,11 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
     testImplementation(libs.koin.test)
+
+    // Room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    testImplementation(libs.room.testing)
 
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.kotlinx.coroutines.test)

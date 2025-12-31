@@ -3,8 +3,10 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
+import com.survivalcoding.gangnam2kiandroidstudy.data.model.entity.User
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeCategory
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.UserRepository
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,13 +16,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
 class RecipeHomeViewModel(
-    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository,
+    private val userRepository: UserRepository,
 ) : ViewModel() {
     private val _state = MutableStateFlow(RecipeHomeState())
     val state = _state.asStateFlow()
@@ -41,6 +45,15 @@ class RecipeHomeViewModel(
                     fetchSearchRecipes(query)
                 }
         }
+
+        viewModelScope.launch {
+            userRepository.loadById(1)
+                .collect { user ->
+                    _state.update {
+                        it.copy(savedRecipeIds = user?.recipeIds ?: emptyList())
+                    }
+                }
+        }
     }
 
     fun onAction(action: RecipeHomeAction) {
@@ -50,11 +63,13 @@ class RecipeHomeViewModel(
                     _uiEvent.emit(RecipeHomeEvent.NavigateToSearchRecipe)
                 }
             }
+
             is RecipeHomeAction.OnRecipeClick -> {
                 viewModelScope.launch {
                     _uiEvent.emit(RecipeHomeEvent.NavigateToDetail(action.recipeId))
                 }
             }
+
             is RecipeHomeAction.SelectedCategory -> updateSelectedCategory(action.selectedCategory)
             is RecipeHomeAction.ToggleBookmark -> toggleBookmark(action.recipeId)
         }
@@ -98,15 +113,16 @@ class RecipeHomeViewModel(
     }
 
     private fun toggleBookmark(recipeId: Int) {
-        val currentSavedIds = _state.value.savedRecipeIds
-        val newSavedIds = if (currentSavedIds.contains(recipeId)) {
-            currentSavedIds - recipeId
-        } else {
-            currentSavedIds + recipeId
-        }
+        viewModelScope.launch {
+            // TODO : User가 없기 때문에 임시 로직
+            val user = userRepository.loadById(1).firstOrNull()
 
-        _state.update {
-            it.copy(savedRecipeIds = newSavedIds)
+            if (user == null) {
+                userRepository.save(User(id = 0, recipeIds = emptyList()))
+            }
+
+            userRepository.updateSavedRecipe(1, recipeId)
         }
     }
+
 }

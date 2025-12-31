@@ -11,28 +11,28 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeReposit
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-//val recipeRepositoryModule = module {
-//
-//    single<RecipeRepository> { RecipeRepositoryImpl(get()) }
-//}
-//
-//val ingredientRepositoryModule = module {
-//
-//    single<IngredientRepository> { IngredientRepositoryImpl(get()) }
-//}
-//
-//val procedureRepositoryModule = module {
-//
-//    single<ProcedureRepository> { ProcedureRepositoryImpl(get()) }
-//}
-//
-//val clipboardRepositoryModule = module {
-//    single<ClipboardRepository> { ClipboardRepositoryImpl(androidContext()) }
-//}
-//
-//val repositoryModule = listOf(
-//    recipeRepositoryModule,
-//    ingredientRepositoryModule,
-//    procedureRepositoryModule,
-//    clipboardRepositoryModule
-//)
+val recipeRepositoryModule = module {
+
+    single<RecipeRepository> { RecipeRepositoryImpl(get()) }
+}
+
+val ingredientRepositoryModule = module {
+
+    single<IngredientRepository> { IngredientRepositoryImpl(get()) }
+}
+
+val procedureRepositoryModule = module {
+
+    single<ProcedureRepository> { ProcedureRepositoryImpl(get()) }
+}
+
+val clipboardRepositoryModule = module {
+    single<ClipboardRepository> { ClipboardRepositoryImpl(androidContext()) }
+}
+
+val repositoryModule = listOf(
+    recipeRepositoryModule,
+    ingredientRepositoryModule,
+    procedureRepositoryModule,
+    clipboardRepositoryModule
+)
