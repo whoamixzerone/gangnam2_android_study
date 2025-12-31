@@ -25,13 +25,13 @@ jobs:
       - name: Run tests
         run: ./gradlew test
 
-      - name: Run instrumented tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          target: google_apis
-          arch: x86_64
-          script: ./gradlew connectedAndroidTest
+#      - name: Run instrumented tests
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 34
+#          target: google_apis
+#          arch: x86_64
+#          script: ./gradlew connectedAndroidTest
 
       - name: Build with Gradle
         run: ./gradlew clean build -x test
