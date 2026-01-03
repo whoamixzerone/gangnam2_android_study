@@ -19,10 +19,6 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -39,19 +35,10 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
 fun SignUpScreen(
-    uiState: SignUpState,
+    state: SignUpState,
     modifier: Modifier = Modifier,
-    onClickTerm: () -> Unit = {},
-    onClickSignUp: () -> Unit = {},
-    onClickSignIn: () -> Unit = {},
+    onAction: (SignUpAction) -> Unit = {},
 ) {
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
-
-    var checked by remember { mutableStateOf(false) }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -71,34 +58,31 @@ fun SignUpScreen(
             modifier = Modifier.padding(top = 20.dp),
             label = "Name",
             placeholder = "Enter Name",
-            value = name
-        ) {
-            name = it
-        }
+            value = state.name,
+            onValueChange = { onAction(SignUpAction.OnNameValueChange(it)) }
+        )
         InputField(
             modifier = Modifier.padding(top = 20.dp),
             label = "Email",
             placeholder = "Enter Email",
-            value = email
-        ) {
-            email = it
-        }
+            value = state.email,
+            onValueChange = { onAction(SignUpAction.OnEmailValueChange(it)) }
+        )
         PasswordInputField(
             modifier = Modifier.padding(top = 20.dp),
             label = "Password",
             placeholder = "Enter Password",
-            password = password
-        ) {
-            password = it
-        }
+            password = state.password,
+            onValueChange = { onAction(SignUpAction.OnPasswordValueChange(it)) }
+        )
         PasswordInputField(
             modifier = Modifier.padding(top = 20.dp),
             label = "Confirm Password",
             placeholder = "Retype Password",
-            password = confirmPassword
-        ) {
-            confirmPassword = it
-        }
+            password = state.confirmPassword,
+            onValueChange = { onAction(SignUpAction.OnConfirmPasswordValueChange(it)) }
+        )
+
         Spacer(Modifier.height(20.dp))
 
         Row(
@@ -108,10 +92,8 @@ fun SignUpScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
-                checked = checked,
-                onCheckedChange = {
-                    checked = it
-                },
+                checked = state.isChecked,
+                onCheckedChange = { onAction(SignUpAction.OnCheckBoxClick) },
                 modifier = Modifier
                     .size(17.dp),
                 colors = CheckboxDefaults.colors(
@@ -124,13 +106,17 @@ fun SignUpScreen(
                 text = "Accept terms & Condition",
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
-                    .clickable { onClickTerm() },
+                    .clickable { onAction(SignUpAction.OnCheckBoxClick) },
                 style = AppTextStyles.smallerTextRegular,
                 color = AppColors.secondary100
             )
         }
 
-        BigButton(modifier = Modifier.padding(top = 26.dp), text = "Sign Up", onClick = onClickSignUp)
+        BigButton(
+            modifier = Modifier.padding(top = 26.dp),
+            text = "Sign Up",
+            onClick = { onAction(SignUpAction.OnSignUpClick) }
+        )
 
         Row(
             modifier = Modifier
@@ -206,7 +192,7 @@ fun SignUpScreen(
             Spacer(Modifier.width(3.dp))
             Text(
                 text = "Sign in",
-                modifier = Modifier.clickable { onClickSignIn() },
+                modifier = Modifier.clickable { onAction(SignUpAction.OnSignInClick) },
                 style = AppTextStyles.smallerTextBold,
                 color = AppColors.secondary100
             )
@@ -218,6 +204,6 @@ fun SignUpScreen(
 @Composable
 private fun SignUpScreenPreview() {
     SignUpScreen(
-        uiState = SignUpState()
+        state = SignUpState()
     )
 }

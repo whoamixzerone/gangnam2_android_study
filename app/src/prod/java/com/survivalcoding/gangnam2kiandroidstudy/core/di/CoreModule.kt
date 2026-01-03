@@ -3,6 +3,9 @@ package com.survivalcoding.gangnam2kiandroidstudy.core.di
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.room.Room
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkMonitor
 import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkMonitorImpl
 import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.AppDataBase
@@ -28,4 +31,6 @@ val coreModule = module {
     }
     
     single { get<AppDataBase>().userDao() }
+
+    single<FirebaseAuth> { FirebaseAuth.getInstance() }
 }

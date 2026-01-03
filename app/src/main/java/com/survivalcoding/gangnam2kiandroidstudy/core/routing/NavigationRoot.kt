@@ -77,11 +77,11 @@ fun NavigationRoot(
             }
             entry<SignIn> {
                 SignInRoot(
-                    navigateSignIn = {
+                    onNavigateToMain = {
                         topLevelBackStack.clear()
                         topLevelBackStack.add(Main())
                     },
-                    navigateSignUp = {
+                    onNavigateToSignUp = {
                         topLevelBackStack.clear()
                         topLevelBackStack.add(SignUp)
                     }
@@ -89,7 +89,7 @@ fun NavigationRoot(
             }
             entry<SignUp> {
                 SignUpRoot(
-                    navigateSignIn = {
+                    onNavigateToSignIn = {
                         topLevelBackStack.clear()
                         topLevelBackStack.add(SignIn)
                     }

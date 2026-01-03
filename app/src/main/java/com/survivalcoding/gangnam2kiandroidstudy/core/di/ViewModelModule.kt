@@ -14,22 +14,18 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val homeViewModelModule = module {
-
     viewModelOf(::RecipeHomeViewModel)
 }
 
 val notificationViewModelModule = module {
-
     viewModelOf(::NotificationViewModel)
 }
 
 val profileViewModelModule = module {
-
     viewModelOf(::ProfileViewModel)
 }
 
 val recipeDetailViewModelModule = module {
-
     viewModel { (recipeId: Int) ->
         RecipeDetailViewModel(
             getRecipeDetailsUseCase = get(),
@@ -40,23 +36,19 @@ val recipeDetailViewModelModule = module {
 }
 
 val savedRecipeViewModelModule = module {
-
     viewModelOf(::SavedRecipeViewModel)
 }
 
 val searchRecipeViewModelModule = module {
-
     viewModelOf(::SearchRecipeViewModel)
 }
 
 val signInViewModelModule = module {
-
-    viewModelOf(::SignInViewModel)
+    viewModel { SignInViewModel(get()) }
 }
 
 val signUpViewModelModule = module {
-
-    viewModelOf(::SignUpViewModel)
+    viewModel { SignUpViewModel(get()) }
 }
 
 val splashViewModelModule = module {

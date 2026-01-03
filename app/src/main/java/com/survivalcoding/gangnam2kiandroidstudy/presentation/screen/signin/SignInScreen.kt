@@ -16,10 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -36,15 +32,11 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 
 @Composable
 fun SignInScreen(
-    uiState: SignInState,
+    state: SignInState,
     modifier: Modifier = Modifier,
     onClickForgotPassword: () -> Unit = {},
-    onClickSignIn: () -> Unit = {},
-    onClickSignUp: () -> Unit = {}
+    onAction: (SignInAction) -> Unit = {},
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -60,18 +52,16 @@ fun SignInScreen(
             modifier = Modifier.padding(top = 57.dp),
             label = "Email",
             placeholder = "Enter Email",
-            value = email
-        ) {
-            email = it
-        }
+            value = state.email,
+            onValueChange = { onAction(SignInAction.OnEmailValueChange(it)) }
+        )
         PasswordInputField(
             modifier = Modifier.padding(top = 30.dp),
             label = "Enter Password",
             placeholder = "Enter Password",
-            password = password
-        ) {
-            password = it
-        }
+            password = state.password,
+            onValueChange = { onAction(SignInAction.OnPasswordValueChange(it)) }
+        )
 
         Text(
             text = "Forgot Password?",
@@ -83,7 +73,11 @@ fun SignInScreen(
             color = AppColors.secondary100
         )
 
-        BigButton(modifier = Modifier.padding(top = 25.dp), text = "Sign In", onClick = onClickSignIn)
+        BigButton(
+            modifier = Modifier.padding(top = 25.dp),
+            text = "Sign In",
+            onClick = { onAction(SignInAction.OnSignInClick) }
+        )
 
         Row(
             modifier = Modifier
@@ -117,7 +111,8 @@ fun SignInScreen(
                         ambientColor = Color(0x1A696969),
                         spotColor = Color(0x1A696969)
                     )
-                    .background(color = AppColors.white, shape = RoundedCornerShape(10.dp)),
+                    .background(color = AppColors.white, shape = RoundedCornerShape(10.dp))
+                    .clickable { onAction(SignInAction.OnGoogleSignInClick) },
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -138,7 +133,8 @@ fun SignInScreen(
                         ambientColor = Color(0x1A696969),
                         spotColor = Color(0x1A696969)
                     )
-                    .background(color = AppColors.white, shape = RoundedCornerShape(10.dp)),
+                    .background(color = AppColors.white, shape = RoundedCornerShape(10.dp))
+                    .clickable { onAction(SignInAction.OnFaceBookSignInClick) },
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -159,7 +155,7 @@ fun SignInScreen(
             Spacer(Modifier.width(3.dp))
             Text(
                 text = "Sign up",
-                modifier = Modifier.clickable { onClickSignUp() },
+                modifier = Modifier.clickable { onAction(SignInAction.OnSignUpClick) },
                 style = AppTextStyles.smallerTextBold,
                 color = AppColors.secondary100
             )
@@ -171,6 +167,6 @@ fun SignInScreen(
 @Composable
 private fun SignInScreenPreview() {
     SignInScreen(
-        uiState = SignInState()
+        state = SignInState()
     )
 }

@@ -1,5 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.data.repository
 
+import androidx.room.Transaction
 import com.survivalcoding.gangnam2kiandroidstudy.data.dao.UserDao
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.User
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.UserRepository
@@ -16,20 +17,19 @@ class UserRepositoryImpl(
     private val userDao: UserDao,
 ) : UserRepository {
 
-    override suspend fun loadById(id: Int): Flow<User?> {
-        return withContext(Dispatchers.IO) {
-            userDao.loadById(id).map { entity ->
-                entity?.let {
-                    User(
-                        id = it.id,
-                        name = "",
-                        image = "",
-                        address = "",
-                        work = "",
-                        introduce = "",
-                        bookmarks = it.recipeIds?.toPersistentList() ?: persistentListOf()
-                    )
-                }
+    @Transaction
+    override fun loadById(id: Int): Flow<User?> {
+        return userDao.loadById(id).map { entity ->
+            entity?.let {
+                User(
+                    id = it.id,
+                    name = "",
+                    image = "",
+                    address = "",
+                    work = "",
+                    introduce = "",
+                    bookmarks = it.recipeIds?.toPersistentList() ?: persistentListOf()
+                )
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.survivalcoding.gangnam2kiandroidstudy
 
-import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity

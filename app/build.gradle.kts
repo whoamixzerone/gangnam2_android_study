@@ -1,9 +1,19 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.google.service)
+}
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        load(file.inputStream())
+    }
 }
 
 android {
@@ -40,7 +50,10 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+
+    val webClientId = localProperties.getProperty("WEB_CLIENT_ID") ?: ""
 
     flavorDimensions += listOf("version")
     productFlavors {
@@ -48,16 +61,18 @@ android {
             dimension = "version"
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
+            buildConfigField("String", "FLAVOR", "\"dev\"")
         }
         create("prod") {
             dimension = "version"
-            applicationIdSuffix = ".prod"
-            versionNameSuffix = "-prod"
+            resValue("string", "web_client_id", webClientId)
+            buildConfigField("String", "FLAVOR", "\"prod\"")
         }
         create("staging") {
             dimension = "version"
             applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
+            buildConfigField("String", "FLAVOR", "\"staging\"")
         }
     }
 
@@ -99,6 +114,14 @@ dependencies {
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     testImplementation(libs.room.testing)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    // Firebase Google Login
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.identity.googleid)
 
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.kotlinx.coroutines.test)

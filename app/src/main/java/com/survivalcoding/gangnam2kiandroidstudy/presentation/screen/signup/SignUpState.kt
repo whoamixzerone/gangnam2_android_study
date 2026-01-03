@@ -4,5 +4,6 @@ data class SignUpState(
     val name: String = "",
     val email: String = "",
     val password: String = "",
-    val confirmPassword: String = ""
+    val confirmPassword: String = "",
+    val isChecked: Boolean = false
 )
