@@ -39,7 +39,7 @@ class RecipeHomeIntegrationTest {
     }
     
     private val fakeUserRepository = object : UserRepository {
-        override suspend fun loadById(id: Int): Flow<User?> = flowOf(
+        override fun loadById(id: Int): Flow<User?> = flowOf(
             User(
                 id = 1,
                 name = "",
@@ -50,6 +50,7 @@ class RecipeHomeIntegrationTest {
                 bookmarks = persistentListOf()
             )
         )
+
         override suspend fun save(user: User) {}
         override suspend fun updateSavedRecipe(id: Int, recipeId: Int) {}
     }

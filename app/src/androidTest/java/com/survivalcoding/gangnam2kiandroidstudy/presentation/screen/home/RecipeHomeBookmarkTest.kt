@@ -65,7 +65,7 @@ class RecipeHomeBookmarkTest {
                 )
             )
             
-            override suspend fun loadById(id: Int): Flow<User?> = _user.asStateFlow()
+            override fun loadById(id: Int): Flow<User?> = _user.asStateFlow()
             
             override suspend fun save(user: User) {
                 _user.value = user

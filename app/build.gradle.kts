@@ -70,8 +70,9 @@ android {
         }
         create("staging") {
             dimension = "version"
-            applicationIdSuffix = ".staging"
+//            applicationIdSuffix = ".staging"ㅕ
             versionNameSuffix = "-staging"
+            resValue("string", "web_client_id", webClientId)
             buildConfigField("String", "FLAVOR", "\"staging\"")
         }
     }
