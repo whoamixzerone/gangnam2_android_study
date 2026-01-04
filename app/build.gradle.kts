@@ -12,7 +12,7 @@ plugins {
 val localProperties = Properties().apply {
     val file = rootProject.file("local.properties")
     if (file.exists()) {
-        load(file.inputStream())
+        file.inputStream().use { load(it) }
     }
 }
 
@@ -61,6 +61,7 @@ android {
             dimension = "version"
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
+            resValue("string", "web_client_id", webClientId)
             buildConfigField("String", "FLAVOR", "\"dev\"")
         }
         create("prod") {
