@@ -40,14 +40,16 @@ class AuthRepositoryImplTest {
     }
 
     @After
-    fun tearDown() = runBlocking {
-        // Delete the user first if signed in
-        try {
-            firebaseAuth.currentUser?.delete()?.await()
-        } catch (e: Exception) {
-            // Ignore if delete fails
+    fun tearDown() {
+        runBlocking {
+            // Delete the user first if signed in
+            try {
+                firebaseAuth.currentUser?.delete()?.await()
+            } catch (e: Exception) {
+                // Ignore if delete fails
+            }
+            firebaseAuth.signOut()
         }
-        firebaseAuth.signOut()
     }
 
     private fun generateUniqueEmail(): String {
@@ -55,46 +57,52 @@ class AuthRepositoryImplTest {
     }
 
     @Test
-    fun signUp_withValidEmailAndPassword_returnsSuccess() = runBlocking {
-        val email = generateUniqueEmail()
-        val password = "password1234"
-        Log.d("AuthTest", "Starting signUp with $email")
+    fun signUp_withValidEmailAndPassword_returnsSuccess() {
+        runBlocking {
+            val email = generateUniqueEmail()
+            val password = "password1234"
+            Log.d("AuthTest", "Starting signUp with $email")
 
-        val result = authRepository.signUp(email, password).first()
+            val result = authRepository.signUp(email, password).first()
 
-        Log.d("AuthTest", "SignUp result: $result")
-        assertTrue("SignUp failed: $result", result is Result.Success)
-        val currentUser = firebaseAuth.currentUser
-        assertEquals(email, currentUser?.email)
+            Log.d("AuthTest", "SignUp result: $result")
+            assertTrue("SignUp failed: $result", result is Result.Success)
+            val currentUser = firebaseAuth.currentUser
+            assertEquals(email, currentUser?.email)
+        }
     }
 
     @Test
-    fun signIn_withValidEmailAndPassword_returnsSuccess() = runBlocking {
-        val email = generateUniqueEmail()
-        val password = "password1234"
-        Log.d("AuthTest", "Starting signIn with $email")
+    fun signIn_withValidEmailAndPassword_returnsSuccess() {
+        runBlocking {
+            val email = generateUniqueEmail()
+            val password = "password1234"
+            Log.d("AuthTest", "Starting signIn with $email")
 
-        // Create user first
-        firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-        firebaseAuth.signOut()
+            // Create user first
+            firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+            firebaseAuth.signOut()
 
-        // Try sign in
-        val result = authRepository.signIn(email, password).first()
+            // Try sign in
+            val result = authRepository.signIn(email, password).first()
 
-        Log.d("AuthTest", "SignIn result: $result")
-        assertTrue("SignIn failed: $result", result is Result.Success)
-        val currentUser = firebaseAuth.currentUser
-        assertEquals(email, currentUser?.email)
+            Log.d("AuthTest", "SignIn result: $result")
+            assertTrue("SignIn failed: $result", result is Result.Success)
+            val currentUser = firebaseAuth.currentUser
+            assertEquals(email, currentUser?.email)
+        }
     }
 
     @Test
-    fun signUp_withInvalidEmail_returnsFailure() = runBlocking {
-        val email = "invalid-email"
-        val password = "password1234"
+    fun signUp_withInvalidEmail_returnsFailure() {
+        runBlocking {
+            val email = "invalid-email"
+            val password = "password1234"
 
-        val result = authRepository.signUp(email, password).first()
+            val result = authRepository.signUp(email, password).first()
 
-        assertTrue(result is Result.Failure)
-        // You might want to assert specific error messages if consistent
+            assertTrue(result is Result.Failure)
+            // You might want to assert specific error messages if consistent
+        }
     }
 }

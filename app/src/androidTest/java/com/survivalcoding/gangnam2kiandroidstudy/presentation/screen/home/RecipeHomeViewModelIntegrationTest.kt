@@ -4,14 +4,17 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.data.dao.UserDao
 import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.AppDataBase
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockRecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.UserRepositoryImpl
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.BookmarkRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -35,6 +38,16 @@ class RecipeHomeViewModelIntegrationTest {
     private lateinit var recipeRepository: RecipeRepository
     private lateinit var viewModel: RecipeHomeViewModel
 
+    private val fakeBookmarkRepository = object : BookmarkRepository {
+        override fun updateBookmarkRecipe(id: Int): Flow<Result<Unit, String>> {
+            TODO("Not yet implemented")
+        }
+
+        override fun getBookmarks(): Flow<Result<List<Int>, String>> {
+            TODO("Not yet implemented")
+        }
+    }
+
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -47,7 +60,7 @@ class RecipeHomeViewModelIntegrationTest {
         userRepository = UserRepositoryImpl(userDao)
         recipeRepository = MockRecipeRepository()
         
-        viewModel = RecipeHomeViewModel(recipeRepository, userRepository)
+        viewModel = RecipeHomeViewModel(recipeRepository, userRepository, fakeBookmarkRepository)
         
         Dispatchers.setMain(StandardTestDispatcher())
     }

@@ -35,7 +35,7 @@ class BookmarkRepositoryImpl(
                 }
 
                 if (bookmarks.contains(id)) {
-                    bookmarks.remove(id)
+                    bookmarks.remove(id as Any)
                 } else {
                     bookmarks.add(id)
                 }

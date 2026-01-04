@@ -9,6 +9,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkError
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.User
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.BookmarkRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.UserRepository
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.mockdata.MockRecipeData
@@ -86,7 +87,17 @@ class RecipeHomeBookmarkTest {
             }
         }
 
-        val viewModel = RecipeHomeViewModel(fakeRepository, fakeUserRepository)
+        val fakeBookmarkRepository = object : BookmarkRepository {
+            override fun updateBookmarkRecipe(id: Int): Flow<Result<Unit, String>> {
+                TODO("Not yet implemented")
+            }
+
+            override fun getBookmarks(): Flow<Result<List<Int>, String>> {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val viewModel = RecipeHomeViewModel(fakeRepository, fakeUserRepository, fakeBookmarkRepository)
 
         composeTestRule.setContent {
             RecipeHomeRoot(viewModel = viewModel)

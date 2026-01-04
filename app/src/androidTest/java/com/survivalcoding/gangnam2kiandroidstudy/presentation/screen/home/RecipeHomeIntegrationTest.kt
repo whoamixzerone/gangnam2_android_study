@@ -9,6 +9,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkError
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.User
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.BookmarkRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.UserRepository
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.mockdata.MockRecipeData
@@ -55,11 +56,21 @@ class RecipeHomeIntegrationTest {
         override suspend fun updateSavedRecipe(id: Int, recipeId: Int) {}
     }
 
+    private val fakeBookmarkRepository = object : BookmarkRepository {
+        override fun updateBookmarkRecipe(id: Int): Flow<Result<Unit, String>> {
+            TODO("Not yet implemented")
+        }
+
+        override fun getBookmarks(): Flow<Result<List<Int>, String>> {
+            TODO("Not yet implemented")
+        }
+    }
+
     @Test
     fun recipe_home_success_scenario_test() {
         // Given: Repository returns success
         val repository = FakeRecipeRepository(Result.Success(MockRecipeData.recipeListThree))
-        val viewModel = RecipeHomeViewModel(repository, fakeUserRepository)
+        val viewModel = RecipeHomeViewModel(repository, fakeUserRepository, fakeBookmarkRepository)
 
         composeTestRule.setContent {
             RecipeHomeRoot(viewModel = viewModel)
@@ -74,7 +85,7 @@ class RecipeHomeIntegrationTest {
     fun recipe_home_error_scenario_test() {
         // Given: Repository returns failure
         val repository = FakeRecipeRepository(Result.Failure(NetworkError.Timeout))
-        val viewModel = RecipeHomeViewModel(repository, fakeUserRepository)
+        val viewModel = RecipeHomeViewModel(repository, fakeUserRepository, fakeBookmarkRepository)
 
         composeTestRule.setContent {
             RecipeHomeRoot(viewModel = viewModel)

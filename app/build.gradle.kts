@@ -109,7 +109,10 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+    testImplementation(platform(libs.koin.bom))
     testImplementation(libs.koin.test)
+    androidTestImplementation(platform(libs.koin.bom))
+    androidTestImplementation(libs.koin.test)
 
     // Room
     implementation(libs.room.runtime)
