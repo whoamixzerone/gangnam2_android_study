@@ -1,4 +1,4 @@
-package com.survivalcoding.gangnam2kiandroidstudy.regacy
+package com.survivalcoding.gangnam2kiandroidstudy.legacy
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView

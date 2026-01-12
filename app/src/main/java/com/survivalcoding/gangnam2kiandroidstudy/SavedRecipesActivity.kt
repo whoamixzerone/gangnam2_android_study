@@ -5,7 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.survivalcoding.gangnam2kiandroidstudy.regacy.RecipeListFragment
+import com.survivalcoding.gangnam2kiandroidstudy.legacy.RecipeListFragment
 
 class SavedRecipesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
-        android:name="com.survivalcoding.gangnam2kiandroidstudy.regacy.RecipeListFragment"
+        android:name="com.survivalcoding.gangnam2kiandroidstudy.legacy.RecipeListFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

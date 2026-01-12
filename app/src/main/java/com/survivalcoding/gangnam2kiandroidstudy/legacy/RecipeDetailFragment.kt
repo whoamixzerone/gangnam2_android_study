@@ -1,11 +1,10 @@
-package com.survivalcoding.gangnam2kiandroidstudy.regacy
+package com.survivalcoding.gangnam2kiandroidstudy.legacy
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.survivalcoding.gangnam2kiandroidstudy.R
 import com.survivalcoding.gangnam2kiandroidstudy.databinding.FragmentRecipeDetailBinding
 
 class RecipeDetailFragment : Fragment() {
