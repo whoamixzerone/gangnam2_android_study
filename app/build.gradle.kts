@@ -51,7 +51,12 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        viewBinding = true
     }
+
+//    viewBinding {
+//        enable = true
+//    }
 
     val webClientId = localProperties.getProperty("WEB_CLIENT_ID") ?: ""
 
@@ -71,7 +76,7 @@ android {
         }
         create("staging") {
             dimension = "version"
-//            applicationIdSuffix = ".staging"ㅕ
+//            applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
             resValue("string", "web_client_id", webClientId)
             buildConfigField("String", "FLAVOR", "\"staging\"")
@@ -110,6 +115,10 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
     testImplementation(platform(libs.koin.bom))
     testImplementation(libs.koin.test)
     androidTestImplementation(platform(libs.koin.bom))
@@ -128,6 +137,9 @@ dependencies {
     implementation(libs.credentials)
     implementation(libs.credentials.play.services.auth)
     implementation(libs.identity.googleid)
+
+    // Glide
+    implementation(libs.glide)
 
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.kotlinx.coroutines.test)

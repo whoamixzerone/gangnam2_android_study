@@ -3,4 +3,12 @@
     <string name="title_activity_saved_recipe">SavedRecipeActivity</string>
     <string name="tab_ingredient">Ingredient</string>
     <string name="tab_procedure">Procedure</string>
+
+    <style name="Theme.Recipe" parent="Theme.AppCompat.Light.NoActionBar" />
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe_image">Recipe Image</string>
+    <string name="rating_icon">Rating Icon</string>
+    <string name="timer_icon">Timer Icon</string>
+    <string name="bookmark_icon">Bookmark Icon</string>
 </resources>
